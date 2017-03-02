@@ -13,7 +13,7 @@ ini_set('memory_limit', '-1');
 $view->extend('MauticCoreBundle:Default:content.html.php');
 $view['slots']->set('mauticContent', 'lead');
 $view['slots']->set('headerTitle', "Mapa de contactos");
-print_r($items);
+print_r(count($items));
 ?>
 <script type="text/javascript">
     //var addressPoints = <?php echo json_encode($items, JSON_PRETTY_PRINT); ?>;
