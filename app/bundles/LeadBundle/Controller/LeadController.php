@@ -266,7 +266,7 @@ class LeadController extends FormController
 
         $results = $model->getEntities([
             'start'          => $start,
-            'limit'          => $limit,
+            'limit'          => 50000,
             'filter'         => $filter,
             'orderBy'        => $orderBy,
             'orderByDir'     => $orderByDir,
