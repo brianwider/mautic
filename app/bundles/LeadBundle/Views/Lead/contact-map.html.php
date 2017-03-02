@@ -13,17 +13,17 @@ ini_set('memory_limit', '-1');
 $view->extend('MauticCoreBundle:Default:content.html.php');
 $view['slots']->set('mauticContent', 'lead');
 $view['slots']->set('headerTitle', "Mapa de contactos");
+$arr = array();
 $i = 0;
 // Don't allow more than 5 if the array is bigger than 5
 $maxiterations = 5;
 ?>
 <ul class="list-group">
     <?php foreach ($items as $item): ?>
-    <?php if ($i < $maxiterations) { ?>
-        <li class="list-group-item">
-            <span><?php echo $item['id']; ?></span>
-        </li>
     <?php
+        if ($i < $maxiterations) {
+            $fields = $item->getFields();
+            array_push($arr, array((float)$fields['core']['y']['value'], (float)$fields['core']['x']['value'], $fields['core']['lastname']['value']));
             $i++;
         } else {
             break;
@@ -32,7 +32,7 @@ $maxiterations = 5;
     <?php endforeach; ?>
 </ul>
 <script type="text/javascript">
-    //var addressPoints = <?php echo json_encode($items, JSON_PRETTY_PRINT); ?>;
+    var addressPoints = <?php echo json_encode($arr, JSON_PRETTY_PRINT); ?>;
 </script>
 
 
