@@ -1,7 +1,7 @@
 <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/0.4.2/leaflet.draw.css" />
 <?php
-
+ini_set('memory_limit', '-1');
 /*
  * @copyright   2014 Mautic Contributors. All rights reserved
  * @author      Mautic
@@ -13,9 +13,10 @@
 $view->extend('MauticCoreBundle:Default:content.html.php');
 $view['slots']->set('mauticContent', 'lead');
 $view['slots']->set('headerTitle', "Mapa de contactos");
+print_r($items);
 ?>
 <script type="text/javascript">
-    var addressPoints = <?php echo json_encode($items, JSON_PRETTY_PRINT); ?>;
+    //var addressPoints = <?php echo json_encode($items, JSON_PRETTY_PRINT); ?>;
 </script>
 
 
