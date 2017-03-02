@@ -47,6 +47,10 @@ return [
                 'path'       => '/contacts/{page}',
                 'controller' => 'MauticLeadBundle:Lead:index',
             ],
+            'mautic_contact_map' => [
+                'path'       => '/contacts/map',
+                'controller' => 'MauticLeadBundle:Lead:contactMap',
+            ],
             'mautic_contactnote_index' => [
                 'path'       => '/contacts/notes/{leadId}/{page}',
                 'controller' => 'MauticLeadBundle:Note:index',

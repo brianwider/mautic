@@ -197,6 +197,176 @@ class LeadController extends FormController
         );
     }
 
+    /**
+     * @param int $page
+     *
+     * @return JsonResponse|\Symfony\Component\HttpFoundation\Response
+     */
+    public function contactMapAction($page = 1)
+    {
+        //set some permissions
+        $permissions = $this->get('mautic.security')->isGranted(
+            [
+                'lead:leads:viewown',
+                'lead:leads:viewother',
+                'lead:leads:create',
+                'lead:leads:editown',
+                'lead:leads:editother',
+                'lead:leads:deleteown',
+                'lead:leads:deleteother',
+            ],
+            'RETURN_ARRAY'
+        );
+
+        if (!$permissions['lead:leads:viewown'] && !$permissions['lead:leads:viewother']) {
+            return $this->accessDenied();
+        }
+
+        if ($this->request->getMethod() == 'POST') {
+            $this->setListFilters();
+        }
+
+        /** @var \Mautic\LeadBundle\Model\LeadModel $model */
+        $model   = $this->getModel('lead');
+        $session = $this->get('session');
+        //set limits
+        $limit = $session->get('mautic.lead.limit', $this->get('mautic.helper.core_parameters')->getParameter('default_pagelimit'));
+        $start = ($page === 1) ? 0 : (($page - 1) * $limit);
+        if ($start < 0) {
+            $start = 0;
+        }
+
+        $search = $this->request->get('search', $session->get('mautic.lead.filter', ''));
+        $session->set('mautic.lead.filter', $search);
+
+        //do some default filtering
+        $orderBy    = $session->get('mautic.lead.orderby', 'l.last_active');
+        $orderByDir = $session->get('mautic.lead.orderbydir', 'DESC');
+
+        $filter      = ['string' => $search, 'force' => ''];
+        $translator  = $this->get('translator');
+        $anonymous   = $translator->trans('mautic.lead.lead.searchcommand.isanonymous');
+        $listCommand = $translator->trans('mautic.lead.lead.searchcommand.list');
+        $mine        = $translator->trans('mautic.core.searchcommand.ismine');
+        $indexMode   = $this->request->get('view', $session->get('mautic.lead.indexmode', 'list'));
+
+        $session->set('mautic.lead.indexmode', $indexMode);
+
+        $anonymousShowing = false;
+        if ($indexMode != 'list' || ($indexMode == 'list' && strpos($search, $anonymous) === false)) {
+            //remove anonymous leads unless requested to prevent clutter
+            $filter['force'] .= " !$anonymous";
+        } elseif (strpos($search, $anonymous) !== false && strpos($search, '!'.$anonymous) === false) {
+            $anonymousShowing = true;
+        }
+
+        if (!$permissions['lead:leads:viewother']) {
+            $filter['force'] .= " $mine";
+        }
+
+        $results = $model->getEntities([
+            'start'          => $start,
+            'limit'          => $limit,
+            'filter'         => $filter,
+            'orderBy'        => $orderBy,
+            'orderByDir'     => $orderByDir,
+            'withTotalCount' => true,
+        ]);
+
+        $count = $results['count'];
+        unset($results['count']);
+
+        $leads = $results['results'];
+        unset($results);
+
+        if ($count && $count < ($start + 1)) {
+            //the number of entities are now less then the current page so redirect to the last page
+            if ($count === 1) {
+                $lastPage = 1;
+            } else {
+                $lastPage = (ceil($count / $limit)) ?: 1;
+            }
+            $session->set('mautic.lead.page', $lastPage);
+            $returnUrl = $this->generateUrl('mautic_contact_index', ['page' => $lastPage]);
+
+            return $this->postActionRedirect(
+                [
+                    'returnUrl'       => $returnUrl,
+                    'viewParameters'  => ['page' => $lastPage],
+                    'contentTemplate' => 'MauticLeadBundle:Lead:index',
+                    'passthroughVars' => [
+                        'activeLink'    => '#mautic_contact_index',
+                        'mauticContent' => 'lead',
+                    ],
+                ]
+            );
+        }
+
+        //set what page currently on so that we can return here after form submission/cancellation
+        $session->set('mautic.lead.page', $page);
+
+        $tmpl = $this->request->isXmlHttpRequest() ? $this->request->get('tmpl', 'index') : 'index';
+
+        $listArgs = [];
+        if (!$this->get('mautic.security')->isGranted('lead:lists:viewother')) {
+            $listArgs['filter']['force'] = " $mine";
+        }
+
+        $lists = $this->getModel('lead.list')->getUserLists();
+
+        //check to see if in a single list
+        $inSingleList = (substr_count($search, "$listCommand:") === 1) ? true : false;
+        $list         = [];
+        if ($inSingleList) {
+            preg_match("/$listCommand:(.*?)(?=\s|$)/", $search, $matches);
+
+            if (!empty($matches[1])) {
+                $alias = $matches[1];
+                foreach ($lists as $l) {
+                    if ($alias === $l['alias']) {
+                        $list = $l;
+                        break;
+                    }
+                }
+            }
+        }
+
+        // Get the max ID of the latest lead added
+        $maxLeadId = $model->getRepository()->getMaxLeadId();
+
+        // We need the EmailRepository to check if a lead is flagged as do not contact
+        /** @var \Mautic\EmailBundle\Entity\EmailRepository $emailRepo */
+        $emailRepo = $this->getModel('email')->getRepository();
+
+        return $this->delegateView(
+            [
+                'viewParameters' => [
+                    'searchValue'      => $search,
+                    'items'            => $leads,
+                    'page'             => $page,
+                    'totalItems'       => $count,
+                    'limit'            => $limit,
+                    'permissions'      => $permissions,
+                    'tmpl'             => $tmpl,
+                    'indexMode'        => $indexMode,
+                    'lists'            => $lists,
+                    'currentList'      => $list,
+                    'security'         => $this->get('mautic.security'),
+                    'inSingleList'     => $inSingleList,
+                    'noContactList'    => $emailRepo->getDoNotEmailList(),
+                    'maxLeadId'        => $maxLeadId,
+                    'anonymousShowing' => $anonymousShowing,
+                ],
+                'contentTemplate' => "MauticLeadBundle:Lead:contact-map.html.php",
+                'passthroughVars' => [
+                    'activeLink'    => '#mautic_contact_index',
+                    'mauticContent' => 'lead',
+                    'route'         => $this->generateUrl('mautic_contact_map', ['page' => $page]),
+                ],
+            ]
+        );
+    }
+
     /*
      * Quick form controller route and view
      */
