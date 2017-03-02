@@ -24,7 +24,7 @@ $maxiterations = 5;
             <span><?php echo $item['id']; ?></span>
         </li>
     <?php
-            i++;
+            $i++;
         } else {
             break;
         }
