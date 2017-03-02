@@ -16,7 +16,7 @@ $view['slots']->set('headerTitle', "Mapa de contactos");
 $arr = array();
 $i = 0;
 // Don't allow more than 5 if the array is bigger than 5
-$maxiterations = 5;
+$maxiterations = 200;
 ?>
 <ul class="list-group">
     <?php foreach ($items as $item): ?>
