@@ -1,0 +1,8 @@
+[2017-02-18 12:48:45] mautic.ERROR: SCHEMA ERROR: An exception occurred while executing 'SELECT f.alias, f.is_unique_identifer as is_unique, f.type, f.object FROM lead_fields f WHERE f.object = 'lead' ORDER BY f.field_order ASC':  SQLSTATE[42S02]: Base table or view not found: 1146 Table 'eba.lead_fields' doesn't exist [] []
+[2017-02-18 12:50:16] mautic.WARNING: IP LOOKUP: The file "/var/www/html/mautic/app/cache/prod/../ip_data/GeoLite2-City.mmdb" does not exist or is not readable. [] []
+[2017-02-18 12:52:18] mautic.WARNING: IP LOOKUP: The file "/var/www/html/mautic/app/cache/prod/../ip_data/GeoLite2-City.mmdb" does not exist or is not readable. [] []
+[2017-02-18 12:54:49] mautic.WARNING: IP LOOKUP: The file "/var/www/html/mautic/app/cache/prod/../ip_data/GeoLite2-City.mmdb" does not exist or is not readable. [] []
+[2017-02-18 12:57:55] mautic.WARNING: IP LOOKUP: The file "/var/www/html/mautic/app/cache/prod/../ip_data/GeoLite2-City.mmdb" does not exist or is not readable. [] []
+[2017-02-18 13:04:54] mautic.WARNING: IP LOOKUP: The file "/var/www/html/mautic/app/cache/prod/../ip_data/GeoLite2-City.mmdb" does not exist or is not readable. [] []
+[2017-02-18 21:06:00] mautic.WARNING: IP LOOKUP: The file "/var/www/html/mautic/app/cache/prod/../ip_data/GeoLite2-City.mmdb" does not exist or is not readable. [] []
+[2017-02-18 21:16:34] mautic.WARNING: IP LOOKUP: The file "/var/www/html/mautic/app/cache/prod/../ip_data/GeoLite2-City.mmdb" does not exist or is not readable. [] []

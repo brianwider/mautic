@@ -1,0 +1,1 @@
+[2017-02-22 01:53:54] mautic.NOTICE: PHP Notice - SessionHandler::gc(): ps_files_cleanup_dir: opendir(/var/lib/php/sessions) failed: Permission denied (13) - in file /var/www/html/mautic/vendor/symfony/http-foundation/Session/Storage/Proxy/SessionHandlerProxy.php - at line 93 [] []
