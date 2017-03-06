@@ -250,6 +250,12 @@ return [
                     'route'     => 'mautic_contact_index',
                     'priority'  => 80,
                 ],
+                'mautic.lead.leads.map' => [
+                    'iconClass' => 'fa-map-o',
+                    'access'    => ['lead:leads:viewown', 'lead:leads:viewother'],
+                    'route'     => 'mautic_contact_map',
+                    'priority'  => 85,
+                ],
                 'mautic.companies.menu.index' => [
                     'route'     => 'mautic_company_index',
                     'iconClass' => 'fa-building-o',
