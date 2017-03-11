@@ -115,9 +115,12 @@ foreach ($tags as $tag) {
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/0.4.2/leaflet.draw.js"></script>
     <script src="http://sintef-9012.github.io/PruneCluster/dist/PruneCluster.js"></script>
-<script src="http://63.141.233.213/prueba2/demo4/leaflet-markercluster.js"></script>
-<script src="http://63.141.233.213/prueba2/demo4/leaflet-image.js"></script>
-
+    <script src="http://63.141.233.213/prueba2/demo4/leaflet-markercluster.js"></script>
+    <script src="http://63.141.233.213/prueba2/demo4/leaflet-image.js"></script>
+<?
+require __DIR__.'/../vendor/modulos/spin.min.js';
+require __DIR__.'/../vendor/modulos/leaflet.spin.min.js';
+?>
 
 <script type="text/javascript">
 
