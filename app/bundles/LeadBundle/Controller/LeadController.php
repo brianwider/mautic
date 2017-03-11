@@ -340,8 +340,6 @@ class LeadController extends FormController
         /** @var \Mautic\EmailBundle\Entity\EmailRepository $emailRepo */
         $emailRepo = $this->getModel('email')->getRepository();
 
-        var_dump($lists);
-
         return $this->delegateView(
             [
                 'viewParameters' => [
@@ -352,6 +350,7 @@ class LeadController extends FormController
                     'limit'            => $limit,
                     'permissions'      => $permissions,
                     'tmpl'             => $tmpl,
+                    'bobo'             => "OJASSONJAS",
                     'indexMode'        => $indexMode,
                     'lists'            => $lists,
                     'currentList'      => $list,

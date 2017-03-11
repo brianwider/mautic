@@ -68,6 +68,7 @@ $maxiterations = 50000;
 
 // Tags
 var_dump($lists);
+var_dump($bobo);
 /*
 ?>
 
