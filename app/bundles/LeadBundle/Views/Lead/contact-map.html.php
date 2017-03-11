@@ -67,6 +67,7 @@ $i = 0;
 $maxiterations = 50000;
 
 // Tags
+var_dump($tags);
 ?>
 
 <select name='id'>
