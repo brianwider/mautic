@@ -67,24 +67,18 @@ $i = 0;
 $maxiterations = 50000;
 
 // Tags
-var_dump($lists);
-var_dump($bobo);
-/*
 ?>
 
 <select name='id'>
 <?php
-foreach ($result as $row)
-{
-                  $id = $row['id'];
-                  $tag = $row['tag'];
-                  echo '<option value="'.$id.'">'.$tag.'</option>';
-
+foreach ($lists as $row) {
+    $id = $row['id'];
+    $segment = $row['name'];
+    echo '<option value="'.$id.'">'.$segment.'</option>';
 }
 ?>
 </select>
-*/
-?>
+
 <ul class="list-group">
     <?php foreach ($items as $item): ?>
     <?php

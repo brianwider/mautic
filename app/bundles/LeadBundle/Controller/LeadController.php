@@ -350,7 +350,6 @@ class LeadController extends FormController
                     'limit'            => $limit,
                     'permissions'      => $permissions,
                     'tmpl'             => $tmpl,
-                    'bobo'             => "OJASSONJAS",
                     'indexMode'        => $indexMode,
                     'lists'            => $lists,
                     'currentList'      => $list,
