@@ -62,7 +62,30 @@ $arr = array();
 $i = 0;
 // Don't allow more than 5 if the array is bigger than 5
 $maxiterations = 50000;
+
+// Tags
+$rsm = new ResultSetMapping;
+$rsm->addEntityResult('Tags', 'u');
+$rsm->addFieldResult('u', 'id', 'id');
+$rsm->addFieldResult('u', 'tag', 'tag');
+$query = $this->_em->createNativeQuery('SELECT id,tag FROM mautic.lead_tags', $rsm);
+$result = $query->getArrayResult();
+var_dump($result);
+die;
 ?>
+
+<select name='id'>
+<?php
+foreach ($result as $row)
+{
+                  $id = $row['id'];
+                  $tag = $row['tag'];
+                  echo '<option value="'.$id.'">'.$tag.'</option>';
+
+}
+?>
+</select>
+
 <ul class="list-group">
     <?php foreach ($items as $item): ?>
     <?php
