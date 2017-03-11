@@ -118,8 +118,8 @@ foreach ($tags as $tag) {
     <script src="http://63.141.233.213/prueba2/demo4/leaflet-markercluster.js"></script>
     <script src="http://63.141.233.213/prueba2/demo4/leaflet-image.js"></script>
 <?php
-require __DIR__.'/../vendor/modules/spin.min.js';
-require __DIR__.'/../vendor/modules/leaflet.spin.min.js';
+echo $view['assets']->includeScript('vendor/modules/spin.min.js';
+echo $view['assets']->includeScript('vendor/modules/leaflet.spin.min.js';
 ?>
 
 <script type="text/javascript">
