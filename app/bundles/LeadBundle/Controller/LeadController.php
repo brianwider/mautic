@@ -22,6 +22,7 @@ use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
+use Doctrine\ORM\Query\ResultSetMapping;
 
 class LeadController extends FormController
 {
@@ -338,11 +339,20 @@ class LeadController extends FormController
         /** @var \Mautic\EmailBundle\Entity\EmailRepository $emailRepo */
         $emailRepo = $this->getModel('email')->getRepository();
 
+        // Tags
+        $rsm = new ResultSetMapping;
+        $rsm->addEntityResult('Tags', 'u');
+        $rsm->addFieldResult('u', 'id', 'id');
+        $rsm->addFieldResult('u', 'tag', 'tag');
+        $query = $this->_em->createNativeQuery('SELECT id,tag FROM mautic.lead_tags', $rsm);
+        $tags = $query->getArrayResult();
+
         return $this->delegateView(
             [
                 'viewParameters' => [
                     'searchValue'      => $search,
                     'items'            => $leads,
+                    'tags'             => $tags,
                     'page'             => $page,
                     'totalItems'       => $count,
                     'limit'            => $limit,

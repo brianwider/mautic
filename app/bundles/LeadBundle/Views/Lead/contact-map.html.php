@@ -64,13 +64,8 @@ $i = 0;
 $maxiterations = 50000;
 
 // Tags
-$rsm = new ResultSetMapping;
-var_dump($rsm);
-/*$rsm->addEntityResult('Tags', 'u');
-$rsm->addFieldResult('u', 'id', 'id');
-$rsm->addFieldResult('u', 'tag', 'tag');
-$query = $this->_em->createNativeQuery('SELECT id,tag FROM mautic.lead_tags', $rsm);
-$result = $query->getArrayResult();
+var_dump($tags);
+/*
 ?>
 
 <select name='id'>
