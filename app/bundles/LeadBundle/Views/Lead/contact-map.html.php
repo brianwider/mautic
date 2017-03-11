@@ -117,8 +117,8 @@ foreach ($tags as $tag) {
 <script src="http://sintef-9012.github.io/PruneCluster/dist/PruneCluster.js"></script>
 <script src="http://63.141.233.213/prueba2/demo4/leaflet-markercluster.js"></script>
 <script src="http://63.141.233.213/prueba2/demo4/leaflet-image.js"></script>
-<script src="http://63.141.233.213/mautic/vendor/spin.min.js"></script>
-<script src="http://63.141.233.213/mautic/vendor/leaflet.spin.min.js"></script>
+<script src="http://63.141.233.213/prueba2/demo4/spin.min.js"></script>
+<script src="http://63.141.233.213/prueba2/demo4/leaflet.spin.min.js"></script>
 
 <script type="text/javascript">
 
