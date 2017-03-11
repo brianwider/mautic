@@ -65,12 +65,12 @@ $maxiterations = 50000;
 
 // Tags
 $rsm = new ResultSetMapping;
-$rsm->addEntityResult('Tags', 'u');
+var_dump($rsm);
+/*$rsm->addEntityResult('Tags', 'u');
 $rsm->addFieldResult('u', 'id', 'id');
 $rsm->addFieldResult('u', 'tag', 'tag');
 $query = $this->_em->createNativeQuery('SELECT id,tag FROM mautic.lead_tags', $rsm);
 $result = $query->getArrayResult();
-var_dump($result);
 ?>
 
 <select name='id'>
@@ -84,7 +84,8 @@ foreach ($result as $row)
 }
 ?>
 </select>
-
+*/
+?>
 <ul class="list-group">
     <?php foreach ($items as $item): ?>
     <?php
