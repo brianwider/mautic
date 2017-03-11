@@ -342,7 +342,7 @@ class LeadController extends FormController
 
         return $this->delegateView(
             [
-                'viewParameters' => [
+                'testListsVar' => [
                     'searchValue'      => $search,
                     'items'            => $leads,
                     'page'             => $page,
