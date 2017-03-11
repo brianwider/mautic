@@ -67,9 +67,10 @@ $i = 0;
 $maxiterations = 50000;
 
 // Tags
+var_dump($tags)
 ?>
 
-<select name='id'>
+<select name='segments'>
 <?php
 foreach ($lists as $row) {
     $id = $row['id'];
@@ -79,11 +80,11 @@ foreach ($lists as $row) {
 ?>
 </select>
 
-<select name='id'>
+<select name='tags'>
 <?php
 foreach ($tags as $tag) {
-    $id = $tag['id'];
-    $tagName = $tag['name'];
+    $id = $tag['value'];
+    $tagName = $tag['label'];
     echo '<option value="'.$id.'">'.$tagName.'</option>';
 }
 ?>

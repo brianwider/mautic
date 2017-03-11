@@ -342,8 +342,7 @@ class LeadController extends FormController
 
 
         // Tags
-        $allTags    = $model->getTagRepository()->getSimpleList(null, [], 'tag');
-        var_dump($allTags);
+        $tags    = $model->getTagRepository()->getSimpleList(null, [], 'tag');
 
         return $this->delegateView(
             [
@@ -351,7 +350,7 @@ class LeadController extends FormController
                     'searchValue'      => $search,
                     'items'            => $leads,
                     'page'             => $page,
-                    'tags'             => $allTags,
+                    'tags'             => $tags,
                     'totalItems'       => $count,
                     'limit'            => $limit,
                     'permissions'      => $permissions,
