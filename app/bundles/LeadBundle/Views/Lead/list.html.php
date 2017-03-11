@@ -178,6 +178,7 @@ if ($permissions['lead:leads:editown'] || $permissions['lead:leads:editother']) 
         <tbody>
         <?php echo $view->render('MauticLeadBundle:Lead:list_rows.html.php', [
             'items'         => $items,
+            'tags'          => $tags,
             'security'      => $security,
             'currentList'   => $currentList,
             'permissions'   => $permissions,
@@ -187,7 +188,7 @@ if ($permissions['lead:leads:editown'] || $permissions['lead:leads:editother']) 
     </table>
 </div>
 <div class="panel-footer">
-    <?php 
+    <?php
 	echo $totalItems;
 	echo $view->render('MauticCoreBundle:Helper:pagination.html.php', [
         'totalItems' => $totalItems,
