@@ -64,7 +64,8 @@ $i = 0;
 $maxiterations = 50000;
 
 // Tags
-var_dump($tags);
+echo $view['form']->start($form);
+echo $view['form']->row($form['lead_lists']);
 /*
 ?>
 
