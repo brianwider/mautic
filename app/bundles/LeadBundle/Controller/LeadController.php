@@ -340,12 +340,20 @@ class LeadController extends FormController
         /** @var \Mautic\EmailBundle\Entity\EmailRepository $emailRepo */
         $emailRepo = $this->getModel('email')->getRepository();
 
+
+        // Tags
+        $rsm = new ResultSetMapping;
+        $this->_em = $this->getDoctrine()->getEntityManager();
+        $query = $this->_em->createNativeQuery('SELECT id,tag FROM lead_tags', $rsm);
+        $tags = $query->getArrayResult();
+
         return $this->delegateView(
             [
                 'viewParameters' => [
                     'searchValue'      => $search,
                     'items'            => $leads,
                     'page'             => $page,
+                    'tags'             => $tags,
                     'totalItems'       => $count,
                     'limit'            => $limit,
                     'permissions'      => $permissions,
