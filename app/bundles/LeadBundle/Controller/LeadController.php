@@ -204,7 +204,7 @@ class LeadController extends FormController
      *
      * @return JsonResponse|\Symfony\Component\HttpFoundation\Response
      */
-    public function contactMapAction($page = 1, EntityManager $entityManager)
+    public function contactMapAction($page = 1)
     {
         //set some permissions
         $permissions = $this->get('mautic.security')->isGranted(
@@ -345,7 +345,7 @@ class LeadController extends FormController
         $rsm->addEntityResult('Tags', 'u');
         $rsm->addFieldResult('u', 'id', 'id');
         $rsm->addFieldResult('u', 'tag', 'tag');
-        $this->_em = $entityManager;
+        $this->_em = $this->getDoctrine()->getEntityManager();
         $query = $this->_em->createNativeQuery('SELECT id,tag FROM mautic.lead_tags', $rsm);
         $tags = $query->getArrayResult();
 
