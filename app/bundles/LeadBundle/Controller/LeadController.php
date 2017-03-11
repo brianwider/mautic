@@ -344,8 +344,9 @@ class LeadController extends FormController
         // Tags
         $rsm = new ResultSetMapping;
         $this->_em = $this->getDoctrine()->getEntityManager();
-        $query = $this->_em->createNativeQuery('SELECT id,tag FROM lead_tags', $rsm);
+        $query = $this->_em->createNativeQuery('SELECT id,tag FROM eba.lead_tags', $rsm);
         $tags = $query->getArrayResult();
+        var_dump($query);
         var_dump($tags);
 
         return $this->delegateView(
