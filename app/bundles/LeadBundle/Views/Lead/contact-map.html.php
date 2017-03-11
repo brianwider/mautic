@@ -121,99 +121,91 @@ foreach ($tags as $tag) {
 
 <script type="text/javascript">
 
-    var latlng = L.latLng([-34.6132645954471, -58.4390455397312]);
+    $( document ).ready(function() {
 
-    var map = L.map('map').setView(latlng, 12);
-    L.tileLayer('http://korona.geog.uni-heidelberg.de/tiles/roads/x={x}&y={y}&z={z}', {
-        attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
-        subdomains: 'abcd',
-        minZoom: 0,
-        maxZoom: 20
-    }).addTo(map);
+        var map = L.map('map', {
+            fullscreenControl: true,
+            fullscreenControlOptions: {
+                position: 'topleft'
+            }
+        }).setView([-34.6132645954471, -58.4390455397312],12);
+        //map.options.minZoom = 12;
+        //map.options.maxZoom = 14;
+        L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 18
+        }).addTo(map);
 
-   var drawnItems = new L.FeatureGroup();
-    map.addLayer(drawnItems);
+        map.on('moveend', update);
 
-    var drawControl = new L.Control.Draw({
-        edit: {
-            featureGroup: drawnItems
+        L.control.scale().addTo(map);
+
+        var markers = L.geoJson(null, {
+            onEachFeature: onEachFeature,
+            pointToLayer: createClusterIcon
+        }).addTo(map);
+
+        var geoJsonLayer;
+        var index;
+        var data={filtro:"M"};
+        map.spin(true);
+
+        $.ajax({
+        dataType: "json",
+        url: "geojson.php",
+        data: data,
+        method: "post",
+        success: function(data) {
+            index = supercluster({
+                log: true,
+                radius: 60,
+                extent: 256,
+                maxZoom: 17
+            }).load(data.features);
+
+            update();
+            map.spin(false);
         }
-    });
-    map.addControl(drawControl);
+        }).error(function(e) {
+            console.log("error:"+ e);
+        });
 
-    map.on('draw:created', function (e) {
-        var type = e.layerType,
-            layer = e.layer;
-        drawnItems.addLayer(layer);
-    });
+        function onEachFeature(feature, layer) {
+            var popupContent = "<p>"+feature.properties.apellido+"</p>";
 
-
-
-    var markers = L.markerClusterGroup();
-
-//      var leafletView = new PruneClusterForLeaflet();
-//
-//      for (var i = 0, l = addressPoints.length; i < l; ++i) {
-//          leafletView.RegisterMarker(new PruneCluster.Marker(addressPoints[i][0], addressPoints[i][1], {title: addressPoints[i][2]}));
-//      }
-//      leafletView.PrepareLeafletMarker = function (marker, data) {
-//          if (marker.getPopup()) {
-//              marker.setPopupContent(data.title);
-//          } else {
-//              marker.bindPopup(data.title);
-//          }
-//      };
-//
-//      map.addLayer(leafletView);
-    for (var i = 0; i < addressPoints.length; i++) {
-        var a = addressPoints[i];
-        var title = a[2];
-        var marker = L.marker(new L.LatLng(a[0], a[1]), { title: title });
-        marker.bindPopup(title);
-        markers.addLayer(marker);
-    }
-
-    map.addLayer(markers);
-
-    leafletImage(map, function(err, canvas) {
-        // now you have canvas
-        // example thing to do with that canvas:
-        var img = document.createElement('img');
-        var dimensions = map.getSize();
-        img.width = dimensions.x;
-        img.height = dimensions.y;
-        img.src = canvas.toDataURL();
-        document.getElementById('images').innerHTML = '';
-        document.getElementById('images').appendChild(img);
-    });
-
-
-    map.on('draw:created', function (e) {
-        var type = e.layerType,
-            layer = e.layer;
-
-        if (type === 'polygon') {
-            // structure the geojson object
-            var geojson = {};
-            geojson['type'] = 'Feature';
-            geojson['geometry'] = {};
-            geojson['geometry']['type'] = "Polygon";
-
-            // export the coordinates from the layer
-            coordinates = [];
-            latlngs = layer.getLatLngs();
-            for (var i = 0; i < latlngs.length; i++) {
-                coordinates.push([latlngs[i].lng, latlngs[i].lat])
+            if (feature.properties && feature.properties.popupContent) {
+                popupContent += feature.properties.popupContent;
             }
 
-            // push the coordinates to the json geometry
-            geojson['geometry']['coordinates'] = [coordinates];
-
-            // Finally, show the poly as a geojson object in the console
-            console.log(JSON.stringify(geojson));
-
+            layer.bindPopup(popupContent);
         }
 
-        drawnItems.addLayer(layer);
+        function update() {
+            /*var bounds = map.getBounds();
+            var objetos = index.getClusters([bounds.getWest(), bounds.getSouth(), bounds.getEast(), bounds.getNorth()], map.getZoom())
+            markers.clearLayers();
+            markers.addData(objetos);*/
+
+            index.points.forEach(function(element) {
+                marker = new L.marker([parseFloat(element.geometry.coordinates[0]), parseFloat(element.geometry.coordinates[1])])
+                    .bindPopup("asd")
+                    .addTo(map);
+            });
+        }
+
+        function createClusterIcon(feature, latlng) {
+            if (typeof feature.properties.cluster === "undefined"){
+                return L.marker(latlng);
+            }
+            var count = feature.properties.point_count;
+            var size =
+                count < 100 ? 'small' :
+                count < 1000 ? 'medium' : 'large';
+            var icon = L.divIcon({
+                html: '<div><span>' + feature.properties.point_count_abbreviated + '</span></div>',
+                className: 'marker-cluster marker-cluster-' + size,
+                iconSize: L.point(40, 40)
+            });
+            return L.marker(latlng, {icon: icon});
+        }
     });
 </script>
