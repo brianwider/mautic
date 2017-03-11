@@ -22,6 +22,7 @@ use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
+use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Query\ResultSetMapping;
 
 class LeadController extends FormController
@@ -203,7 +204,7 @@ class LeadController extends FormController
      *
      * @return JsonResponse|\Symfony\Component\HttpFoundation\Response
      */
-    public function contactMapAction($page = 1)
+    public function contactMapAction($page = 1, EntityManager $entityManager)
     {
         //set some permissions
         $permissions = $this->get('mautic.security')->isGranted(
@@ -344,6 +345,7 @@ class LeadController extends FormController
         $rsm->addEntityResult('Tags', 'u');
         $rsm->addFieldResult('u', 'id', 'id');
         $rsm->addFieldResult('u', 'tag', 'tag');
+        $this->_em = $entityManager;
         $query = $this->_em->createNativeQuery('SELECT id,tag FROM mautic.lead_tags', $rsm);
         $tags = $query->getArrayResult();
 
