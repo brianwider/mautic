@@ -343,7 +343,7 @@ class LeadController extends FormController
         // Tags
         $rsm = new ResultSetMapping;
         $this->_em = $this->getDoctrine()->getEntityManager();
-        $query = $this->_em->createNativeQuery('SELECT id,tag FROM mautic.lead_lists', $rsm);
+        $query = $this->_em->createNativeQuery('SELECT id,tag FROM lead_lists', $rsm);
         $tags = $query->getArrayResult();
 
         return $this->delegateView(
