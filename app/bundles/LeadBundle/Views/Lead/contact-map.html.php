@@ -79,6 +79,16 @@ foreach ($lists as $row) {
 ?>
 </select>
 
+<select name='id'>
+<?php
+foreach ($tags as $tag) {
+    $id = $tag['id'];
+    $tagName = $tag['name'];
+    echo '<option value="'.$id.'">'.$tagName.'</option>';
+}
+?>
+</select>
+
 <ul class="list-group">
     <?php foreach ($items as $item): ?>
     <?php
