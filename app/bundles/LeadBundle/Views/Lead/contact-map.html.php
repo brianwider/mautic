@@ -117,7 +117,7 @@ foreach ($tags as $tag) {
     <script src="http://sintef-9012.github.io/PruneCluster/dist/PruneCluster.js"></script>
     <script src="http://63.141.233.213/prueba2/demo4/leaflet-markercluster.js"></script>
     <script src="http://63.141.233.213/prueba2/demo4/leaflet-image.js"></script>
-<?
+<?php
 require __DIR__.'/../vendor/modulos/spin.min.js';
 require __DIR__.'/../vendor/modulos/leaflet.spin.min.js';
 ?>
