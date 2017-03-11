@@ -178,7 +178,6 @@ if ($permissions['lead:leads:editown'] || $permissions['lead:leads:editother']) 
         <tbody>
         <?php echo $view->render('MauticLeadBundle:Lead:list_rows.html.php', [
             'items'         => $items,
-            'tags'          => $tags,
             'security'      => $security,
             'currentList'   => $currentList,
             'permissions'   => $permissions,
