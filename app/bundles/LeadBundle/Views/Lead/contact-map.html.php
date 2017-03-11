@@ -71,7 +71,6 @@ $rsm->addFieldResult('u', 'tag', 'tag');
 $query = $this->_em->createNativeQuery('SELECT id,tag FROM mautic.lead_tags', $rsm);
 $result = $query->getArrayResult();
 var_dump($result);
-die;
 ?>
 
 <select name='id'>
