@@ -111,16 +111,14 @@ foreach ($tags as $tag) {
     <div id="map"></div>
     <div id="images"></div>
 </div>
-    <script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/0.4.2/leaflet.draw.js"></script>
-    <script src="http://sintef-9012.github.io/PruneCluster/dist/PruneCluster.js"></script>
-    <script src="http://63.141.233.213/prueba2/demo4/leaflet-markercluster.js"></script>
-    <script src="http://63.141.233.213/prueba2/demo4/leaflet-image.js"></script>
-<?php
-echo $view['assets']->includeScript('vendor/modules/spin.min.js';
-echo $view['assets']->includeScript('vendor/modules/leaflet.spin.min.js';
-?>
+<script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/0.4.2/leaflet.draw.js"></script>
+<script src="http://sintef-9012.github.io/PruneCluster/dist/PruneCluster.js"></script>
+<script src="http://63.141.233.213/prueba2/demo4/leaflet-markercluster.js"></script>
+<script src="http://63.141.233.213/prueba2/demo4/leaflet-image.js"></script>
+<script src="http://63.141.233.213/mautic/vendor/spin.min.js"></script>
+<script src="http://63.141.233.213/mautic/vendor/leaflet.spin.min.js"></script>
 
 <script type="text/javascript">
 
