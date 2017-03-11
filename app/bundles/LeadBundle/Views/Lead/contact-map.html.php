@@ -46,6 +46,9 @@
         }
 </style>
 <?php
+if ($tmpl == 'index') {
+    $view->extend('MauticLeadBundle:Lead:index.html.php');
+}
 ini_set('memory_limit', '-1');
 /*
  * @copyright   2014 Mautic Contributors. All rights reserved
@@ -64,7 +67,7 @@ $i = 0;
 $maxiterations = 50000;
 
 // Tags
-var_dump($testListsVar);
+var_dump($lists);
 /*
 ?>
 
