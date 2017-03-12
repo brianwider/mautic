@@ -156,7 +156,7 @@ foreach ($tags as $tag) {
     });
 
     function setGetParameter(paramName, paramValue) {
-        var url = window.location.href;
+        var url = window.location.href.split('?')[0];
         var hash = location.hash;
         url = url.replace(hash, '');
         if (url.indexOf(paramName + "=") >= 0) {
@@ -175,8 +175,8 @@ foreach ($tags as $tag) {
         window.location.href = url + hash;
     }
 
-    function makeCall(id) {
-        setGetParameter("segment", id);
+    function makeCall(id, type) {
+        setGetParameter(type, id);
     }
 
     L.tileLayer('http://korona.geog.uni-heidelberg.de/tiles/roads/x={x}&y={y}&z={z}', {
