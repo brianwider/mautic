@@ -345,19 +345,19 @@ class LeadController extends FormController
         $tags    = $model->getTagRepository()->getSimpleList(null, [], 'tag');
 
 
-
-        $em = $this->getDoctrine()->getManager(); // ...or getEntityManager() prior to Symfony 2.1
-        $connection = $em->getConnection();
-        $statement = $connection->prepare("SELECT a.id,a.email,a.x,a.y,c.name FROM leads a
-inner join lead_lists_leads b
-on a.id = b.lead_id
-inner join lead_lists c on b.leadlist_id = c.id
-where x is not null
-and c.id = :id;");
-        $statement->bindValue('id', 1);
-        $statement->execute();
-        $segments = $statement->fetchAll();
-        var_dump($segments);
+        if ($segment) {
+            $em = $this->getDoctrine()->getManager();
+            $connection = $em->getConnection();
+            $statement = $connection->prepare("SELECT a.id,a.email,a.x,a.y,c.name FROM leads a
+    inner join lead_lists_leads b
+    on a.id = b.lead_id
+    inner join lead_lists c on b.leadlist_id = c.id
+    where x is not null
+    and c.id = :id;");
+            $statement->bindValue('id', $segment);
+            $statement->execute();
+            $leads = $statement->fetchAll();
+        }
 
         return $this->delegateView(
             [
@@ -368,7 +368,6 @@ and c.id = :id;");
                     'tags'             => $tags,
                     'totalItems'       => $count,
                     'limit'            => $limit,
-                    'segments'         => $segments,
                     'permissions'      => $permissions,
                     'tmpl'             => $tmpl,
                     'indexMode'        => $indexMode,
