@@ -133,14 +133,15 @@ foreach ($tags as $tag) {
     $(function() {
         addAddressPoints(addressPoints);
         mQuery("#segments").chosen().change(function(){
-            debugger;
+            map.spin(true);
+            var id = $("#segments").val();
+            makeCall(id, "segments");
         });
 
-        $( "#segments" ).on('chosen:updated', function(event, params) {
+        mQuery("#tags").chosen().change(function(){
             map.spin(true);
-            debugger;
-            var id = $("#segments").val();
-            makeCall(id);
+            var id = $("#tags").val();
+            makeCall(id, "tags");
         });
     });
 
