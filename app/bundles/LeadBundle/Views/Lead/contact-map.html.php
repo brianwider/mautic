@@ -1,15 +1,16 @@
 <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/0.4.2/leaflet.draw.css" />
 <style>
-    .demo-map-img,
     #map {
         width: 70%;
         height: 900px;
         margin: 0 auto;
     }
+    .panel.panel-default {
+        text-align: center;
+    }
     .demo-map-img {
         width: 70%;
-        margin: 0 auto;
     }
     .marker-cluster-small {
         background-color: rgba(181, 226, 140, 0.6);
