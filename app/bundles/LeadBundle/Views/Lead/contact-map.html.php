@@ -125,6 +125,7 @@ foreach ($tags as $tag) {
     <div id="map"></div>
     <div id="images"></div>
 </div>
+<img src="http://63.141.233.214/modulos/MAPA.jpg" />
 <script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/0.4.2/leaflet.draw.js"></script>
