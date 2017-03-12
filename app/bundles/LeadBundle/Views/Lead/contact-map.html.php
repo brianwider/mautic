@@ -134,6 +134,7 @@ foreach ($tags as $tag) {
         addAddressPoints(addressPoints);
         $( "#segments" ).change(function() {
             map.spin(true);
+            debugger;
             var id = $("#segments").val();
             makeCall(id);
         });
