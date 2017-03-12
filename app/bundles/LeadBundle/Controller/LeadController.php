@@ -344,7 +344,7 @@ class LeadController extends FormController
         // Tags
         $tags    = $model->getTagRepository()->getSimpleList(null, [], 'tag');
 
-
+        var_dump($segment);
         if ($segment) {
             $em = $this->getDoctrine()->getManager();
             $connection = $em->getConnection();
@@ -357,6 +357,7 @@ class LeadController extends FormController
             $statement->bindValue('id', $segment);
             $statement->execute();
             $leads = $statement->fetchAll();
+            var_dump($leads);
         }
 
         return $this->delegateView(
