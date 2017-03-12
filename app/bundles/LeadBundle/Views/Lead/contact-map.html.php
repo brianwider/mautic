@@ -132,7 +132,7 @@ foreach ($tags as $tag) {
 
     $(function() {
         addAddressPoints(addressPoints);
-        $( "#segments" ).change(function() {
+        $( "#segments" ).chosen().change(function(){
             map.spin(true);
             debugger;
             var id = $("#segments").val();
