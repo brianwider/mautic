@@ -145,6 +145,7 @@ foreach ($tags as $tag) {
         mQuery("#segments").chosen().change(function(){
             map.spin(true);
             mQuery("#segments").prop('disabled', true).trigger("chosen:updated");
+            mQuery("#tags").prop('disabled', true).trigger("chosen:updated");
             var id = $("#segments").val();
             makeCall(id, "segment");
         });
@@ -152,6 +153,7 @@ foreach ($tags as $tag) {
         mQuery("#tags").chosen().change(function(){
             map.spin(true);
             mQuery("#tags").prop('disabled', true).trigger("chosen:updated");
+            mQuery("#segments").prop('disabled', true).trigger("chosen:updated");
             var id = $("#tags").val();
             makeCall(id, "tag");
         });
