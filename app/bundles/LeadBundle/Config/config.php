@@ -135,6 +135,10 @@ return [
                 'path'       => '/contacts/{id}/segments',
                 'controller' => 'MauticLeadBundle:Api\LeadApi:getLists',
             ],
+            'mautic_api_getcontactssegmentbyid' => [
+                'path'       => '/contacts/segment/{id}',
+                'controller' => 'MauticLeadBundle:Api\LeadApi:getLeadsByList',
+            ],
             'mautic_api_getcontactscompanies' => [
                 'path'       => '/contacts/{id}/companies',
                 'controller' => 'MauticLeadBundle:Api\LeadApi:getCompanies',
