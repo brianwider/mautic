@@ -132,9 +132,10 @@ foreach ($tags as $tag) {
 
     $(function() {
         addAddressPoints(addressPoints);
-        $(".chosen-select").on('chosen:updated', function(event, params) {
+        mQuery("#segments").chosen().change(function(){
             debugger;
-        })
+        });
+
         $( "#segments" ).on('chosen:updated', function(event, params) {
             map.spin(true);
             debugger;
