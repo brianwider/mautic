@@ -1,9 +1,14 @@
 <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/0.4.2/leaflet.draw.css" />
 <style>
+    .demo-map-img,
     #map {
         width: 70%;
         height: 900px;
+        margin: 0 auto;
+    }
+    .demo-map-img {
+        width: 70%;
         margin: 0 auto;
     }
     .marker-cluster-small {
@@ -124,8 +129,8 @@ foreach ($tags as $tag) {
 <div class="panel panel-default bdr-t-wdh-0 mb-0">
     <div id="map"></div>
     <div id="images"></div>
+    <img class="demo-map-img" src="http://63.141.233.214/modulos/MAPA.jpg" />
 </div>
-<img src="http://63.141.233.214/modulos/MAPA.jpg" />
 <script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/0.4.2/leaflet.draw.js"></script>
