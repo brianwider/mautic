@@ -315,7 +315,7 @@ class LeadController extends FormController
         $tags    = $model->getTagRepository()->getSimpleList(null, [], 'tag');
 
         var_dump($segment);
-        if ($segment) {
+        if (!is_null($segment)) {
             $em = $this->getDoctrine()->getManager();
             $connection = $em->getConnection();
             $statement = $connection->prepare("SELECT a.id,a.email,a.x,a.y,c.name FROM leads a
