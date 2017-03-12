@@ -1,0 +1,1 @@
+[2017-03-02 02:27:05] mautic.NOTICE: InvalidArgumentException: The route "contacts_map" does not exist. (uncaught exception) at /var/www/html/mautic/vendor/symfony/framework-bundle/Command/RouterDebugCommand.php line 93 while running console command `debug:router` [] []

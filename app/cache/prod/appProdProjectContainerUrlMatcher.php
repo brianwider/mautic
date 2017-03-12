@@ -800,6 +800,11 @@ class appProdProjectContainerUrlMatcher extends Symfony\Bundle\FrameworkBundle\R
                         return $this->mergeDefaults(array_replace($matches, array('_route' => 'mautic_contact_index')), array (  '_controller' => 'Mautic\\LeadBundle\\Controller\\LeadController::indexAction',  'page' => 0,));
                     }
 
+                    // mautic_contact_map
+                    if ($pathinfo === '/s/contacts/map') {
+                        return array (  '_controller' => 'Mautic\\LeadBundle\\Controller\\LeadController::contactMapAction',  '_route' => 'mautic_contact_map',);
+                    }
+
                     if (0 === strpos($pathinfo, '/s/contacts/notes')) {
                         // mautic_contactnote_index
                         if (preg_match('#^/s/contacts/notes(?:/(?P<leadId>\\d+)(?:/(?P<page>\\d+))?)?$#s', $pathinfo, $matches)) {

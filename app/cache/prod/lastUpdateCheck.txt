@@ -1,0 +1,1 @@
+{"error":false,"message":"mautic.core.updater.update.available","version":"2.7.0","announcement":"https:\/\/mautic.org\/community\/index.php\/7137-2-7-0-released","package":"https:\/\/s3.amazonaws.com\/mautic\/releases\/2.7.0-update.zip","checkedTime":1489277275,"stability":"stable"}

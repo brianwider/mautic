@@ -2124,6 +2124,7 @@ $catalogue = new MessageCatalogue('es', array (
     'mautic.lead.lead.upcoming.event.triggered.at' => 'evento <strong class=\'text-primary\'>%event%</strong> se accionará en %link%',
     'mautic.lead.lead.upcoming.events' => 'Próximos Eventos',
     'mautic.lead.leads' => 'Contactos',
+    'mautic.lead.leads.map' => 'Mapa de contactos',
     'mautic.lead.lifecycle.graph.device.granularity' => 'Dispositivos',
     'mautic.lead.lifecycle.graph.pie.all.lists' => 'Todos los contactos',
     'mautic.lead.lifecycle.graph.stage.cycle' => 'Ciclo de las Etapas',
