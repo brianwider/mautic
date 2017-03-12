@@ -67,7 +67,7 @@ $i = 0;
 $maxiterations = 50000;
 ?>
 
-<select name='segments'>
+<select id="segments" name='segments'>
 <?php
 foreach ($lists as $row) {
     $id = $row['id'];
