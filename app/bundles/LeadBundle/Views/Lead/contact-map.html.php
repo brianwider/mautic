@@ -145,13 +145,13 @@ foreach ($tags as $tag) {
         mQuery("#segments").chosen().change(function(){
             map.spin(true);
             var id = $("#segments").val();
-            makeCall(id, "segments");
+            makeCall(id, "segment");
         });
 
         mQuery("#tags").chosen().change(function(){
             map.spin(true);
             var id = $("#tags").val();
-            makeCall(id, "tags");
+            makeCall(id, "tag");
         });
     });
 
