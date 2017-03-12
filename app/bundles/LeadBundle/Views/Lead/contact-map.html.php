@@ -65,9 +65,6 @@ $arr = array();
 $i = 0;
 // Don't allow more than 5 if the array is bigger than 5
 $maxiterations = 50000;
-
-// Tags
-var_dump($segments)
 ?>
 
 <select name='segments'>
