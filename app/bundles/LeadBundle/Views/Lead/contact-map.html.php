@@ -91,9 +91,15 @@ foreach ($tags as $tag) {
     <?php foreach ($items as $item): ?>
     <?php
         if ($i < $maxiterations) {
-            $fields = $item->getFields();
-            array_push($arr, array((float)$fields['core']['y']['value'], (float)$fields['core']['x']['value'], $fields['core']['lastname']['value']));
-            $i++;
+            if ($item->getFields()) {
+                # code...
+                $fields = $item->getFields();
+                array_push($arr, array((float)$fields['core']['y']['value'], (float)$fields['core']['x']['value'], $fields['core']['lastname']['value']));
+                $i++;
+            } else {
+                array_push($arr, array((float)$item['y'], (float)$item['x'], $fields['name']));
+                $i++;
+            }
         } else {
             break;
         }
