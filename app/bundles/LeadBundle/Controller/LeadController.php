@@ -351,7 +351,7 @@ inner join lead_lists_leads b
 on a.id = b.lead_id
 inner join lead_lists c on b.leadlist_id = c.id
 where x is not null
-and c.id = ' . $segment . ';', $rsm);
+and c.id = 1;', $rsm);
         $segments = $query->getArrayResult();
 
         return $this->delegateView(
