@@ -283,6 +283,46 @@ class LeadApiController extends CommonApiController
     }
 
     /**
+     * Obtains a list of contacts by the segment selected.
+     *
+     * @param $id
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function getLeadsByListAction($id)
+    {
+        $entity = $this->model->getEntity($id);
+        if ($entity !== null) {
+            if (!$this->get('mautic.security')->hasEntityAccess('lead:leads:viewown', 'lead:leads:viewother', $entity->getPermissionUser())) {
+                return $this->accessDenied();
+            }
+
+            $lists = $this->model->getLists($entity, true, true);
+
+            foreach ($lists as &$l) {
+                unset($l['leads'][0]['leadlist_id']);
+                unset($l['leads'][0]['lead_id']);
+
+                $l = array_merge($l, $l['leads'][0]);
+
+                unset($l['leads']);
+            }
+
+            $view = $this->view(
+                [
+                    'total' => count($lists),
+                    'lists' => $lists,
+                ],
+                Codes::HTTP_OK
+            );
+
+            return $this->handleView($view);
+        }
+
+        return $this->notFound();
+    }
+
+    /**
      * Obtains a list of contact companies the contact is in.
      *
      * @param $id
