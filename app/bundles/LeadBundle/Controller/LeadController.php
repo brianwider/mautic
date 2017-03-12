@@ -208,6 +208,7 @@ class LeadController extends FormController
     public function contactMapAction(Request $request)
     {
         $segment = $request->query->get('segment');
+        $tag = $request->query->get('tag');
         //set some permissions
         $permissions = $this->get('mautic.security')->isGranted(
             [
@@ -318,14 +319,28 @@ class LeadController extends FormController
             $em = $this->getDoctrine()->getManager();
             $connection = $em->getConnection();
             $statement = $connection->prepare("SELECT a.id,a.email,a.x,a.y,c.name FROM leads a
-    inner join lead_lists_leads b
-    on a.id = b.lead_id
-    inner join lead_lists c on b.leadlist_id = c.id
-    where x is not null
-    and c.id = :id;");
+                inner join lead_lists_leads b
+                on a.id = b.lead_id
+                inner join lead_lists c on b.leadlist_id = c.id
+                where x is not null
+                and c.id = :id;");
             $statement->bindValue('id', $segment);
             $statement->execute();
             $leads = $statement->fetchAll();
+        }
+
+        if (!is_null($tag)) {
+            $em1 = $this->getDoctrine()->getManager();
+            $connection1 = $em1->getConnection();
+            $statement1 = $connection1->prepare("SELECT a.id,a.email,a.x,a.y FROM leads a
+                inner join lead_tags_xref b
+                on a.id = b.lead_id
+                inner join lead_tags c on b.tag_id = c.id
+                where x is not null
+                and c.id = :id;");
+            $statement1->bindValue('id', $tag);
+            $statement1->execute();
+            $leads = $statement1->fetchAll();
         }
 
         return $this->delegateView(

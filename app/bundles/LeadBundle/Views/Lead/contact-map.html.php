@@ -72,7 +72,12 @@ $maxiterations = 50000;
 foreach ($lists as $row) {
     $id = $row['id'];
     $segment = $row['name'];
-    echo '<option value="'.$id.'">'.$segment.'</option>';
+    if (isset($_GET['segment']) && $_GET['segment'] == $id) {
+        $selected = "selected";
+    } else {
+        $selected = "";
+    }
+    echo '<option value="'.$id.'" ' . $selected . '>'.$segment.'</option>';
 }
 ?>
 </select>
@@ -82,7 +87,12 @@ foreach ($lists as $row) {
 foreach ($tags as $tag) {
     $id = $tag['value'];
     $tagName = $tag['label'];
-    echo '<option value="'.$id.'">'.$tagName.'</option>';
+    if (isset($_GET['tag']) && $_GET['tag'] == $id) {
+        $selected = "selected";
+    } else {
+        $selected = "";
+    }
+    echo '<option value="'.$id.'" ' . $selected . '>'.$tagName.'</option>';
 }
 ?>
 </select>
