@@ -204,7 +204,7 @@ class LeadController extends FormController
      *
      * @return JsonResponse|\Symfony\Component\HttpFoundation\Response
      */
-    public function contactMapAction($page = 1, $segment = false)
+    public function contactMapAction($segment = false)
     {
         //set some permissions
         $permissions = $this->get('mautic.security')->isGranted(
@@ -231,12 +231,6 @@ class LeadController extends FormController
         /** @var \Mautic\LeadBundle\Model\LeadModel $model */
         $model   = $this->getModel('lead');
         $session = $this->get('session');
-        //set limits
-        $limit = $session->get('mautic.lead.limit', $this->get('mautic.helper.core_parameters')->getParameter('default_pagelimit'));
-        $start = ($page === 1) ? 0 : (($page - 1) * $limit);
-        if ($start < 0) {
-            $start = 0;
-        }
 
         $search = $this->request->get('search', $session->get('mautic.lead.filter', ''));
         $session->set('mautic.lead.filter', $search);
@@ -280,32 +274,6 @@ class LeadController extends FormController
 
         $leads = $results['results'];
         unset($results);
-
-        if ($count && $count < ($start + 1)) {
-            //the number of entities are now less then the current page so redirect to the last page
-            if ($count === 1) {
-                $lastPage = 1;
-            } else {
-                $lastPage = (ceil($count / $limit)) ?: 1;
-            }
-            $session->set('mautic.lead.page', $lastPage);
-            $returnUrl = $this->generateUrl('mautic_contact_index', ['page' => $lastPage]);
-
-            return $this->postActionRedirect(
-                [
-                    'returnUrl'       => $returnUrl,
-                    'viewParameters'  => ['page' => $lastPage],
-                    'contentTemplate' => 'MauticLeadBundle:Lead:index',
-                    'passthroughVars' => [
-                        'activeLink'    => '#mautic_contact_index',
-                        'mauticContent' => 'lead',
-                    ],
-                ]
-            );
-        }
-
-        //set what page currently on so that we can return here after form submission/cancellation
-        $session->set('mautic.lead.page', $page);
 
         $tmpl = $this->request->isXmlHttpRequest() ? $this->request->get('tmpl', 'index') : 'index';
 
@@ -365,7 +333,6 @@ class LeadController extends FormController
                 'viewParameters' => [
                     'searchValue'      => $search,
                     'items'            => $leads,
-                    'page'             => $page,
                     'tags'             => $tags,
                     'totalItems'       => $count,
                     'limit'            => $limit,
@@ -384,7 +351,7 @@ class LeadController extends FormController
                 'passthroughVars' => [
                     'activeLink'    => '#mautic_contact_index',
                     'mauticContent' => 'lead',
-                    'route'         => $this->generateUrl('mautic_contact_map', ['page' => $page]),
+                    'route'         => $this->generateUrl('mautic_contact_map', []),
                 ],
             ]
         );
