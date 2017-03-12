@@ -48,7 +48,7 @@ return [
                 'controller' => 'MauticLeadBundle:Lead:index',
             ],
             'mautic_contact_map' => [
-                'path'       => '/contacts/map/{segment}',
+                'path'       => '/contacts/map',
                 'controller' => 'MauticLeadBundle:Lead:contactMap',
             ],
             'mautic_contactnote_index' => [

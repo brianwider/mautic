@@ -24,6 +24,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Query\ResultSetMapping;
+use Symfony\Component\HttpFoundation\Request;
 
 class LeadController extends FormController
 {
@@ -204,8 +205,9 @@ class LeadController extends FormController
      *
      * @return JsonResponse|\Symfony\Component\HttpFoundation\Response
      */
-    public function contactMapAction($segment = false)
+    public function contactMapAction(Request $request)
     {
+        $segment = $request->query->get('segment');
         //set some permissions
         $permissions = $this->get('mautic.security')->isGranted(
             [
