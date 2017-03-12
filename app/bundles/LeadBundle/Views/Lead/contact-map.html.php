@@ -144,12 +144,14 @@ foreach ($tags as $tag) {
         addAddressPoints(addressPoints);
         mQuery("#segments").chosen().change(function(){
             map.spin(true);
+            this.prop('disabled', true).trigger("chosen:updated");
             var id = $("#segments").val();
             makeCall(id, "segment");
         });
 
         mQuery("#tags").chosen().change(function(){
             map.spin(true);
+            this.prop('disabled', true).trigger("chosen:updated");
             var id = $("#tags").val();
             makeCall(id, "tag");
         });
